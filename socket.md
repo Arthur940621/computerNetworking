@@ -636,13 +636,13 @@ while (1) {
 - 服务器端以 `4` 字节整数型向客户端传回运算结果。
 - 客户端得到运算结果后终止与服务器端的连接。
 
-![op_server](./src/chapter5/op_server.cpp)
+[op_server](./src/chapter5/op_server.cpp)
 
 客户端的数据传送格式:
 
 ![](./Image/socket/028.png)
 
-![op_client](./src/chapter5/op_client.cpp)
+[op_client](./src/chapter5/op_client.cpp)
 
 ### `TCP` 原理
 
