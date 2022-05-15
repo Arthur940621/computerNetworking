@@ -16,7 +16,7 @@ void error_handling(const string& message) {
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
-        cerr << "Usage: " << argv[0] << " <GroupIP> <PORT>" << endl;
+        cerr << "Usage: " << argv[0] << " <BoradcastIP> <PORT>" << endl;
         exit(1);
     }
 

@@ -74,7 +74,7 @@ int accept(int sockfd, struct sockaddr* addr, socklen_t* addrlen);
 - 第三步: 调用 `listen` 函数转为可接收请求状态。
 - 第四步: 调用 `accept` 函数受理连接请求。
 
-[hello_server](./src/chapter1/hello_server.cpp)
+[hello_server](../src/chapter1/hello_server.cpp)
 
 #### 构建打电话套接字
 
@@ -90,7 +90,7 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 客户端程序只有调用 `socket` 函数创建套接字和调用 `connect` 函数向服务器端发送连接请求这两个步骤，因此比服务器端简单。
 
-[hello_client](./src/chapter1/hello_client.cpp)
+[hello_client](../src/chapter1/hello_client.cpp)
 
 ### 基于 `Linux` 的文件操作
 
@@ -110,7 +110,7 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 首先介绍打开文件以读写数据的函数。调用此函数时需传递两个参数: 第一个参数是打开的目标文件名及路径信息，第二个参数是文件打开模式。
 
-![001](./Image/socket/001.png)
+![001](../image/socket/001.png)
 
 下表是此函数第二个参数 `flag` 可能的常量值及含义。如需传递多个参数，则应通过位或运算符组合并传递。
 
@@ -127,7 +127,7 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 使用文件后必须关闭。
 
-![002](./Image/socket/002.png)
+![002](../image/socket/002.png)
 
 此函数不仅可以关闭文件，还可以关闭套接字。
 
@@ -135,19 +135,19 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 `write` 函数用于向文件输出（传输）数据。
 
-![003](./Image/socket/003.png)
+![003](../image/socket/003.png)
 
 此函数定义中，`size_t` 是通过 `typedef` 声明的 `unsigned int` 类型。对 `ssize_t` `来说，size_t` 前面多加的 `s` 代表 `signed`，即 `ssize_t` 是通过 `typedef` 声明的 `signed int` 类型。
 
-[low_open](./src/chapter1/low_open.cpp)
+[low_open](../src/chapter1/low_open.cpp)
 
 #### 读取数据中的文件
 
 与之前的 `write` 函数相对应，`read` 函数用来输入（接收）数据。
 
-![004](./Image/socket/004.png)
+![004](../image/socket/004.png)
 
-[low_read](./src/chapter1/low_read.cpp)
+[low_read](../src/chapter1/low_read.cpp)
 
 ## 第二章: 套接字类型与与协议设置
 
@@ -163,7 +163,7 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 #### 创建套接字
 
-![005](./Image/socket/005.png)
+![005](../image/socket/005.png)
 
 #### 协议簇
 
@@ -193,7 +193,7 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 如果向 `socket` 函数的第二个参数传递SOCK_STREAM，将创建面向连接的套接字。
 
-![006](./Image/socket/006.png)
+![006](../image/socket/006.png)
 
 图中 `2` 位工人通过 `1` 条传送带传递物品，这与面向连接的数据传输方式类似。
 
@@ -230,7 +230,7 @@ int connect(int sockfd, struct sockaddr* serv_addr, socklen_t addrlen);
 
 如果向 `socket` 函数的第二个参数传递 `SOCK_DGRAM` ，则将创建面向消息的套接字。
 
-![007](./Image/socket/007.png)
+![007](../image/socket/007.png)
 
 面向消息的套接字可以比喻成高速移动的摩托车快递。图中摩托车快递的包裹（数据）传输方式如下:
 - 强调快速传输而非传输顺序。
@@ -282,7 +282,7 @@ int udp_socket = socket(PF_INET, SOCK_DGRAM, IP PROTO_UDP);
 
 为验证这一点，需要让 `write` 函数的调用次数不同于 `read` 函数的调用次数。因此，在客户端中分多次调用 `read` 函数以接收服务器端发送的全部数据。
 
-[tcp_client](./src/chapter2/tcp_client.cpp)
+[tcp_client](../src/chapter2/tcp_client.cpp)
 
 ## 第三章: 地址族与数据序列
 
@@ -315,21 +315,21 @@ int udp_socket = socket(PF_INET, SOCK_DGRAM, IP PROTO_UDP);
 
 结构体定义为如下形态，此结构体将作为地址信息传递给 `bind` 函数。
 
-![008](./Image/socket/008.png)
+![008](../image/socket/008.png)
 
 该结构体中提到的另一个结构体 `in_addr` 定义如下，它用来存放 `32` 位 `IP` 地址。
 
-![009](./Image/socket/009.png)
+![009](../image/socket/009.png)
 
 数据类型的定义:
 
-![010](./Image/socket/010.png)
+![010](../image/socket/010.png)
 
 #### 结构体 `sockaddr_in` 的成员分析
 
 - `sin_family`
   - 每种协议族适用的地址族均不同。比如，`IPv4` 使用 `4` 字节地址族，`IPv6` 使用 `16` 字节地址族。
-  - ![011](./Image/socket/011.png)
+  - ![011](../image/socket/011.png)
   - 在 `socket` 编程中只能是 `AF_INET`。
 - `sin_port`
   - 该成员保存 `16` 位端口号，它以网络字节序保存。
@@ -341,7 +341,7 @@ int udp_socket = socket(PF_INET, SOCK_DGRAM, IP PROTO_UDP);
 
 `bind` 函数的第二个参数期望得到 `sockaddr` 结构体变量地址值，包括地址族、端口号、`IP` 地址等。但是直接向 `sockaddr` 结构体填充这些信息会带来麻烦。
 
-![012](./Image/socket/012.png)
+![012](../image/socket/012.png)
 
 此结构体成员 `sa_data` 保存的地址信息中需包含 `IP` 地址和端口号，剩余部分应填充 `0`。而这对于包含地址信息来讲非常麻烦，继而就有了新的结构体`sockaddr_in`。
 
@@ -370,13 +370,13 @@ int udp_socket = socket(PF_INET, SOCK_DGRAM, IP PROTO_UDP);
 
 示例，假设在 `0x20` 号开始的地址中保存 `4` 字节 `int` 类型数 `0x12345678`。大端序 `CPU` 保存方式如图所示。
 
-![013](./Image/socket/013.png)
+![013](../image/socket/013.png)
 
 整数 `0x12345678` 中，`0x12` 是最高位字节，`0x78` 是最低位字节。因此，大端序中先保存最高位字节 `0x12`（最高位字节 `0x12` 存放到低位地址）。
 
 小端序保存如图所示。
 
-![014](./Image/socket/014.png)
+![014](../image/socket/014.png)
 
 先保存的是最低位字节 `0x78`。目前主流的 `Intel` 系列 `CPU` 以小端序方式保存数据。
 
@@ -396,7 +396,7 @@ unsigned long ntohl(unsigned long);
 - `h` 代表主机字节序，`n` 代表网络字节序。
 - `s` 指的是 `short`，`l` 指的是 `long`（`Linux` 中 `long` 类型占用 `4` 个字节（`32` 位））。
 
-[endian_conv](./src/chapter3/endian_conv.cpp)
+[endian_conv](../src/chapter3/endian_conv.cpp)
 
 数据转换成网络字节序这个过程是自动的。除了向 `sockaddr_in` 结构体变量填充数据外，其他情况无需考虑字节序问题。
 
@@ -406,23 +406,23 @@ unsigned long ntohl(unsigned long);
 
 对于 `IP` 地址的表示，我们熟悉的是点分十进制表示法，而非整数型数据表示法。
 
-![015](./Image/socket/015.png)
+![015](../image/socket/015.png)
 
-[inet_addr](./src/chapter3/inet_addr.cpp)
+[inet_addr](../src/chapter3/inet_addr.cpp)
 
 `inet_aton` 函数与 `inet_addr` 函数在功能上完全相同，也将字符串形式 `IP` 地址转换为 `32` 位网络字节序整数并返回。只不过该函数利用了 `in_addr` 结构体，且其使用频率更高。
 
-![016](./Image/socket/016.png)
+![016](../image/socket/016.png)
 
-[inet_addr](./src/chapter3/inet_addr.cpp)
+[inet_addr](../src/chapter3/inet_addr.cpp)
 
 `inet_ntoa` 函数正好相反，此函数可以把网络字节序整数型 `IP` 地址转换成我们熟悉的字符串形式。
 
-![017](./Image/socket/017.png)
+![017](../image/socket/017.png)
 
 返回字符串地址意味着字符串已保存到内存空间，但该函数未向程序员要求分配内存，而是在内部申请了内存并保存了字符串。也就是说，调用完该函数后，应立即将字符串信息复制到其他内存空间。因为，若再次调用该函数，则有可能覆盖之前保存的字符串信息。
 
-[inet_ntoa](./src/chapter3/inet_ntoa.cpp)
+[inet_ntoa](../src/chapter3/inet_ntoa.cpp)
 
 #### 网络地址初始化
 
@@ -450,7 +450,7 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 
 #### 向套接字分配网络
 
-![018](./Image/socket/018.png)
+![018](../image/socket/018.png)
 
 如果此函数调用成功，则将第二个参数指定的地址信息分配给第一个参数中的相应套接字。
 
@@ -460,7 +460,7 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 
 #### `TCP/IP` 协议栈
 
-![019](./Image/socket/019.png)
+![019](../image/socket/019.png)
 
 `TCP/IP` 协议栈共分 `4` 层，可以理解为数据收发分成了 `4` 个层次化过程。也就是说，面对基于互联网的有效数据传输的命题，并非通过 `1` 个庞大协议解决问题，而是化整为零，通过层次化方案，`TCP/IP` 协议栈解决。
 
@@ -500,17 +500,17 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 
 #### `TCP` 服务器端的默认函数调用顺序
 
-![020](./Image/socket/020.png)
+![020](../image/socket/020.png)
 
 #### 进入等待连接请求状态
 
 我们已调用 `bind` 函数给套接字分配了地址，接下来就要通过调用 `listen` 函数进入等待连接请求状态。这时客户端才能调用 `connect` 函数。
 
-![021](./Image/socket/021.png)
+![021](../image/socket/021.png)
 
 服务器端处于等待连接请求状态是指，客户端请求连接时，受理连接前一直使请求处于等待状态。
 
-![022](./Image/socket/022.png)
+![022](../image/socket/022.png)
 
 客户端连接请求本身也是从网络中接收到的一种数据，而要想接收就需要套接字。此任务就由服务器端套接字完成。服务器端套接字是接收连接请求的一名门卫或一扇门。
 
@@ -522,17 +522,17 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 
 调用 `listen` 函数后，若有新的连接请求，则应按序受理。受理请求意味着进入可接受数据的状态。
 
-![023](./Image/socket/023.png)
+![023](../image/socket/023.png)
 
 `accept` 函数受理连接请求等待队列中待处理的客户端连接请求。函数调用成功时，`accept` 函数内部将产生用于数据 `I/O` 的套接字，并返回其文件描述符。套接字是自动创建的，并自动与发起连接请求的客户端建立连接。
 
 #### `TCP` 客户端的默认函数调用顺序
 
-![024](./Image/socket/024.png)
+![024](../image/socket/024.png)
 
 服务器端调用 listen 函数后创建连接请求等待队列，之后客户端即可请求连接。
 
-![025](./Image/socket/025.png)
+![025](../image/socket/025.png)
 
 客户端调用 connect 函数后，发生以下情况之一才会返回（完成函数调用）:
 - 服务器端接收连接请求。
@@ -544,7 +544,7 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 
 #### 基于 TCP 的服务器端/客户端函数调用关系
 
-![026](./Image/socket/026.png)
+![026](../image/socket/026.png)
 
 服务器端创建套接字后连续调用 `bind`、`listen` 函数进入等待状态，客户端通过调用 `connect` 函数发起连接请求。需要注意的是，客户端只能等到服务器端调用 `listen` 函数后才能调 `connect` 函数。同时要清楚，客户端调用 `connect` 函数前，服务器端有可能率先调用 `accept` 函数。当然，此时服务器端在调用 `accept` 函数时进入阻塞状态，直到客户端调 `connect` 函数为止。
 
@@ -554,7 +554,7 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 
 之前讨论的 `Helloworld` 服务器端处理完 `1` 个客户端连接请求即退出，连接请求等待队列实际没有太大意义。但这并非我们想象的服务器端。设置好等待队列的大小后，应向所有客户端提供服务，继续受理后续的客户端连接请求。
 
-![027](./Image/socket/027.png)
+![027](../image/socket/027.png)
 
 调用 `accept` 函数后，紧接着调用 `I/O` 相关的 `read`、`write` 函数，然后调用 `close` 函数。这并非针对服务器端套接字，而是针对 `accept` 函数调用时创建的套接字。
 
@@ -566,9 +566,9 @@ addr.sin_port = htons(atoi(serv_port)); // 基于字符串的端口号初始化
 - 服务器端将接收的字符串数据传回客户端，即回声。
 - 服务器端与客户端之间的字符串回声一直执行到客户端输入 `Q` 为止。
 
-[echo_server](./Image/../src/chapter4/echo_server.cpp)
+[echo_server](../image/../src/chapter4/echo_server.cpp)
 
-[echo_client](./Image/../src/chapter4/echo_client.cpp)
+[echo_client](../image/../src/chapter4/echo_client.cpp)
 
 #### 回声客户端存在的问题
 
@@ -617,7 +617,7 @@ while (1) {
 
 可以提前确定接收数据的大小。若之前传输了 `20` 字节长的字符串，则在接收时循环调用 `read` 函数读取 `20` 个字节即可。
 
-[echo_client2](./src/chapter5/echo_client2.cpp)
+[echo_client2](../src/chapter5/echo_client2.cpp)
 
 #### 如果问题不在于回声客户端: 定义应用层协议
 
@@ -638,13 +638,13 @@ while (1) {
 - 服务器端以 `4` 字节整数型向客户端传回运算结果。
 - 客户端得到运算结果后终止与服务器端的连接。
 
-[op_server](./src/chapter5/op_server.cpp)
+[op_server](../src/chapter5/op_server.cpp)
 
 客户端的数据传送格式:
 
-![028](./Image/socket/028.png)
+![028](../image/socket/028.png)
 
-[op_client](./src/chapter5/op_client.cpp)
+[op_client](../src/chapter5/op_client.cpp)
 
 ### `TCP` 原理
 
@@ -655,7 +655,7 @@ while (1) {
 
 实际上，`write` 函数调用后并非立即传输数据，`read` 函数调用后也并非马上接收数据。更准确地说，`write` 函数调用瞬间，数据将移至输出缓冲；`read` 函数调用瞬间，从输入缓冲读取数据。
 
-![029](./Image/socket/029.png)
+![029](../image/socket/029.png)
 
 如图所示，调用 `write` 函数时，数据将移到输出缓冲，在适当的时候（不管是分别传送还是一次性传送）传向对方的输入缓冲。这时对方将调用 `read` 函数从输入缓冲读取数据。这些 `I/O` 缓冲特性如下:
 - `I/O` 缓冲在每个 `TCP` 套接字中单独存在。
@@ -682,7 +682,7 @@ while (1) {
 
 详情见传输层:
 
-[传输层](./%E4%BC%A0%E8%BE%93%E5%B1%82.md)
+[传输层](../%E4%BC%A0%E8%BE%93%E5%B1%82.md)
 
 ## 第六章: 基于 `UDP` 的服务器端/客户端
 
@@ -700,7 +700,7 @@ while (1) {
 
 #### `UDP` 内部工作原理
 
-![030](./Image/socket/030.png)
+![030](../image/socket/030.png)
 
 `IP` 的作用就是让离开主机 `B` 的 `UDP` 数据包准确传递到主机 `A`。但把 `UDP` 包最终交给主机 `A` 的某一 `UDP` 套接字的过程则是由 `UDP` 完成的。`UDP` 最重要的作用就是根据端口号将传到主机的数据包交付给最终的 `UDP` 套接字。
 
@@ -730,20 +730,20 @@ while (1) {
 
 创建好 `TCP` 套接字后，传输数据时无需再添加地址信息。因为 `TCP` 套接字将保持与对方套接字的连接。换言之，`TCP` 套接字知道目标地址信息。但 `UDP` 套接字不会保持连接状态，因此每次传输数据都要添加目标地址信息。
 
-![031](./Image/socket/031.png)
+![031](../image/socket/031.png)
 
 上述函数与之前的 `TCP` 输出函数最大的区别在于，此函数需要向它传递目标地址信息。
 
 来介绍接收 `UDP` 数据的函数。`UDP` 数据的发送端并不固定，因此该函数定义为可接收发送端信息的形式，也就是将同时返回 `UDP` 数据包中的发送端信息。
 
-![032](./Image/socket/032.png)
+![032](../image/socket/032.png)
 
 #### 基于 `UDP` 的回声服务器端/客户端
 
 下面结合之前的内容实现回声服务器。需要注意的是，`UDP` 不同于 `TCP`，不存在请求连接和受理过程，因此在某种意义上无法明确区分服务器端和客户端。只是因其提供服务而称为服务器端。
 
-[uecho_server](./src/chapter6/uecho_server.cpp)
-[uecho_client](./src/chapter6/uecho_client.cpp)
+[uecho_server](../src/chapter6/uecho_server.cpp)
+[uecho_client](../src/chapter6/uecho_client.cpp)
 
 #### `UDP` 客户端套接字的地址分配
 
@@ -764,9 +764,9 @@ while (1) {
 
 相反，`UDP` 是具有数据边界的协议，传输中调用 `I/O` 函数的次数非常重要。因此，输入函数的调用次数应和输出函数的调用次数完全一致，这样才能保证接收全部已发送数据。例如，调用 `3` 次输出函数发送的数据必须通过调用 `3` 次输入函数才能接收完。
 
-[bound_host1](./src/chapter6/bound_host1.cpp)
+[bound_host1](../src/chapter6/bound_host1.cpp)
 
-[bound_host2](./src/chapter6/bound_host2.cpp)
+[bound_host2](../src/chapter6/bound_host2.cpp)
 
 `bound_host2.cpp` 程序 `3` 次调用 `sendto` 函数以传输数据，`bound_hostl.cpp` 则调用 `3` 次 `recvfrom` 函数以接收数据。`recvfrom` 函数调用间隔为 `5` 秒，因此，调用 `recvfrom` 函数前已调用了 `3` 次 `sendto` 函数。也就是说，此时数据已经传输到 `bound_host1.cpp`。如果是 `TCP` 程序，这时只需调用 `1` 次输入函数即可读入数据。`UDP` 则不同，在这种情况下也需要调用 `3` 次 `recvfrom` 函数。
 
@@ -783,7 +783,7 @@ while (1) {
 
 `IP` 为 `211.210.147.82` 的主机 `82` 号端口共准备了 `3` 个数据，调用 `3` 次 `sendto` 函数进行传输。此时需重复 `3` 次上述三阶段。因此，要与同一主机进行长时间通信时，将 `UDP` 套接字变成已连接套接字会提高效率。上述三个阶段中，第一个和第三个阶段占整个通信过程近 `1/3` 的时间，缩短这部分时间将大大提高整体性能。
 
-[uecho_con_client](./src/chapter6/uecho_con_client.cpp)
+[uecho_con_client](../src/chapter6/uecho_con_client.cpp)
 
 ## 第七章: 优雅地断开套接字连接
 
@@ -795,7 +795,7 @@ while (1) {
 
 因此，在某些情况下，通信一方调用 `close` 函数断开连接就显得不太优雅。
 
-![033](./Image/socket/033.png)
+![033](../image/socket/033.png)
 
 图中描述的是 `2` 台主机正在进行双向通信。主机 `A` 发送完最后的数据后，调用 `close` 函数断开了连接，之后主机 `A` 无法再接收主机 `B` 传输的数据。实际上，是完全无法调用与接收数据相关的函数。最终，由主机 `B` 传输的、主机 `A` 必须接收的数据也销毁了。
 
@@ -808,13 +808,13 @@ while (1) {
 此处的流可以比作水流。水朝着一个方向流动，同样，在套接字的流中，数据也只能向一个
 方向移动。因此，为了进行双向通信，需要 `2` 个流。
 
-![034](./Image/socket/034.png)
+![034](../image/socket/034.png)
 
 一旦两台主机间建立了套接字连接，每个主机就会拥有单独的输入流和输出流。其中一个主机的输入流与另一主机的输出流相连，而输出流则与另一主机的输入流相连。
 
 #### 针对优雅断开的 `shutdow` n函数
 
-![035](./Image/socket/035.png)
+![035](../image/socket/035.png)
 
 调用上述函数时，第二个参数决定断开连接的方式，其可能值如下所示:
 - `SHUT_RD`: 断开输入流。
@@ -853,11 +853,11 @@ while (1) {
 
 #### 基于半关闭的文件传输程序
 
-![036](./Image/socket/036.png)
+![036](../image/socket/036.png)
 
-[file_server](./src/chapter7/file_server.cpp)
+[file_server](../src/chapter7/file_server.cpp)
 
-[file_client](./src/chapter7/file_client.cpp)
+[file_client](../src/chapter7/file_client.cpp)
 
 ## 第八章: 域名及网络地址
 
@@ -887,7 +887,7 @@ while (1) {
 
 使用以下函数可以通过传递字符串格式的域名获取 `IP` 地址:
 
-![037](./Image/socket/037.png)
+![037](../image/socket/037.png)
 
 只要传递域名字符串，就会返回域名对应的 IP 地址。只是返回时，地址信息装入 hostent 结构体。此结构体定义如下:
 
@@ -913,13 +913,13 @@ char** h_addr_list; // addresslist
 - `h_addr_list`
   - 这是最重要的成员。通过此变量以整数形式保存域名对应的 `IP` 地址。另外，用户较多的网站有可能分配多个 `IP` 给同一域名，利用多个服务器进行负载均衡。此时同样可以通过此变量获取 `IP` 地址信息。
 
-![038](./Image/socket/038.png)
+![038](../image/socket/038.png)
 
-[gethostbyname](./src/chapter8/gethostbyname.cpp)
+[gethostbyname](../src/chapter8/gethostbyname.cpp)
 
 若只看 `hostent` 结构体的定义，结构体成员 `h_addr_list` 指向字符串指针数组（由多个字符串地址构成的数组）。但字符串指针数组中的元素实际指向的是（实际保存的是）`in_addr` 结构体变量地址值而非字符串。
 
-![039](./Image/socket/039.png)
+![039](../image/socket/039.png)
 
 `hostent` 结构体的成员 `h_addr_list` 指向的数组类型并不是 `in_addr` 结构体的指针数组，而是采用了 `char` 指针。`hostent `结构体并非只为 `IPv4` 准备。`h_addr_list` 指向的数组中也可以保存 `IPv6` 地址信息。因此，考虑到通用性，声明为 `char` 指针类型的数组。
 
@@ -927,9 +927,9 @@ char** h_addr_list; // addresslist
 
 而 `gethostbyaddr` 函数利用 `IP` 地址获取域相关信息。
 
-![040](./Image/socket/040.png)
+![040](../image/socket/040.png)
 
-[gethostbyaddr](./src/chapter8/gethostbyaddr.cpp)
+[gethostbyaddr](../src/chapter8/gethostbyaddr.cpp)
 
 ## 第九章: 套接字的多种可选项
 
@@ -939,7 +939,7 @@ char** h_addr_list; // addresslist
 
 之前都是创建好套接字后直接使用的，通过默认的套接字特性进行数据通信。
 
-![041](./Image/socket/041.png)
+![041](../image/socket/041.png)
 
 套接字可选项是分层的。`IPPROTO_IP` 层可选项是 `IP` 协议相关事项，`IPPROTO_TCP` 层可选项是 `TCP` 协议相关的事项，`SOL_SOCKET` 层是套接字相关的通用可选项。
 
@@ -947,11 +947,11 @@ char** h_addr_list; // addresslist
 
 可选项的读取和设置通过如下 `2` 个函数完成:
 
-![042](./Image/socket/042.png)
+![042](../image/socket/042.png)
 
-![043](./Image/socket/043.png)
+![043](../image/socket/043.png)
 
-[sock_type](./src/chapter9/sock_type.cpp)
+[sock_type](../src/chapter9/sock_type.cpp)
 
 用于验证套接字类型的 `SO_TYPE` 是典型的只读可选项，套接字类型只能在创建时决定，以后不能再更改。
 
@@ -961,9 +961,9 @@ char** h_addr_list; // addresslist
 
 `SO_SNDBUF` 是输入缓冲大小相关可选项，`SO_RCVBUF` 是输出缓冲大小相关可选项。用这 `2` 个可选项既可以读取当前 `I/O` 缓冲大小，也可以进行更改。
 
-[get_buf](./src/chapter9/get_buf.cpp)
+[get_buf](../src/chapter9/get_buf.cpp)
 
-[set_buf](./src/chapter9/set_buf.cpp)
+[set_buf](../src/chapter9/set_buf.cpp)
 
 ### `SO_REUSEADDR`
 
@@ -981,7 +981,7 @@ char** h_addr_list; // addresslist
 
 #### `Time-wait` 状态
 
-![044](./Image/socket/044.png)
+![044](../image/socket/044.png)
 
 假设主机 `A` 是服务器端，因为是主机 `A` 向 `B` 发送 `FIN` 消息，故可以想象成服务器端在控制台输入 `CTRL+C`。但问题是，套接字经过四次挥手过程后并非立即消除，而是要经过一段时间的 `Time-wait` 状态。当然，只有先断开连接的（先发送 `FIN` 消息的）主机才经过 `Time-wait` 状态。因此，若服务器端先断开连接，则无法立即重新运行。套接字处在 `Time-wait` 过程时，相应端口是正
 在使用的状态。因此，就像之前验证过的，`bind` 函数调用过程中当然会发生错误。
@@ -992,13 +992,13 @@ char** h_addr_list; // addresslist
 
 当系统发生故障从而紧急停止，需要尽快重启服务器端以提供服务，但因处于 `Time-wait` 状态而必须等待几分钟。
 
-![045](./Image/socket/045.png)
+![045](../image/socket/045.png)
 
 在主机 `A` 的四次挥手过程中，如果最后的数据丢失，则主机 `B` 会认为主机 `A` 未能收到自己发送的 `FIN` 消息，因此重传。这时，收到 `FIN` 消息的主机 `A` 将重启 `Time-wait` 计时器。因此，如果网络状况不理想，`Time-wait` 状态将持续。
 
 解决方案就是在套接字的可选项中更改 `SO_REUSEADDR` 的状态。适当调整该参数，可将 `Time-wait` 状态下的套接字端口号重新分配给新的套接字。`SO_REUSEADDR` 的默认值为 `0`（假），这就意味着无法分配 `Time-wait` 状态下的套接字端口号。因此需要将这个值改成 `1`（真）。
 
-[reuseadr_eserver](./src/chapter9/reuseadr_eserver.cpp)
+[reuseadr_eserver](../src/chapter9/reuseadr_eserver.cpp)
 
 ### `TCP_NODELAY`
 
@@ -1006,7 +1006,7 @@ char** h_addr_list; // addresslist
 
 `Nagle` 算法应用于 `TCP` 层，为防止因数据包过多而发生网络过载。
 
-![046](./Image/socket/046.png)
+![046](../image/socket/046.png)
 
 **只有收到前一数据的 ACK 消息时，Nagle 算法才发送下一数据。**
 
@@ -1074,13 +1074,13 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 
 无论进程是如何创建的，所有进程都会从操作系统分配到 `ID`。此 `ID` 称为 进程 `ID`，其值为大于 `2` 的整数。`1` 要分配给操作系统启动后的（用于协助操作系统）首个进程，因此用户进程无法得到 `ID` 值 `1`。
 
-![047](./Image/socket/047.png)
+![047](../image/socket/047.png)
 
 #### 通过调用 `fork` 函数创建进程
 
 创建进程的方法很多，此处只介绍用于创建多进程服务器端的 `fork` 函数。
 
-![048](./Image/socket/048.png)
+![048](../image/socket/048.png)
 
 `fork` 函数将创建调用的进程副本。也就是说，并非根据完全不同的程序创建进程，而是复制正在运行的、调用 `fork` 函数的进程。另外，两个进程都将执行 `fork` 函数调用后的语句（准确地说是在 `fork` 函数返回后）。
 
@@ -1088,13 +1088,13 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 - 父进程: `fork` 函数返回子进程 `ID`。
 - 子进程: `fork` 函数返回 `0`。
 
-![049](./Image/socket/049.png)
+![049](../image/socket/049.png)
 
 父进程调用 `fork` 函数的同时复制出子进程，并分别得到 `fork` 函数的返回值。但复制前，父进程将全局变量 `gval` 增加到 `11`，将局部变量 `lval` 的值增加到 `25`，因此在这种状态下完成进程复制。
 
 复制完成后根据 `fork` 函数的返回类型区分父子进程。父进程将 `lval` 的值加 `1`，但这不会影响子进程的 `lval` 值。同样，子进程将 `gval` 的值加 `1` 也不会影响到父进程的 `gval`。因为 `fork` 函数调用后分成了完全不同的进程，只是二者共享同一代码而已。
 
-[fork](./src/chapter10/fork.cpp)
+[fork](../src/chapter10/fork.cpp)
 
 
 ### 进程和僵尸进程
@@ -1115,9 +1115,9 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 
 如何向父进程传递这些值呢？操作系统不会主动把这些值传递给父进程。只有父进程主动发起请求（函数调用）时，操作系统才会传递该值。换言之，如果父进程未主动要求获得子进程的结束状态值，操作系统将一直保存，并让子进程长时间处于僵尸进程状态。
 
-[zombie](./src/chapter10/zombie.cpp)
+[zombie](../src/chapter10/zombie.cpp)
 
-![050](./Image/socket/050.png)
+![050](../image/socket/050.png)
 
 可以看出，`PID` 为 `45214` 的进程状态为僵尸进程（`Z+`）。另外，经过 `30` 秒的等待时间后，`PID` 为 `45213` 的父进程和之前的僵尸子进程同时销毁。
 
@@ -1125,22 +1125,22 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 
 如前所述，为了销毁子进程，父进程应主动请求获取子进程的返回值。接下来讨论发起请求的具体方法，共有 `2` 种，其中之一就是调用如下函数:
 
-![051](./Image/socket/051.png)
+![051](../image/socket/051.png)
 
 调用此函数时如果已有子进程终止，那么子进程终止时传递的返回值（exit 函数的参数值、main 函数的 return 返回值）将保存到该函数的参数所指内存空间。但函数参数指向的单元中还包含其他信息，因此需要通过下列宏进行分离。
 - `WIFEXITED` 子进程正常终止时返回真（`true`）。
 - `WEXITSTATUS` 返回子进程的返回值。
 
-[wait](./src/chapter10/wait.cpp)
+[wait](../src/chapter10/wait.cpp)
 
 调用 `wait` 函数时，如果没有已终止的子进程，那么程序将阻塞直到有子进程终止。
 
 #### 销毁僵尸进程 `2`: 使用 `waitpid` 函数
 `wait` 函数会引起程序阻塞，还可以考虑调用 `waitpid` 函数。这是防止僵尸进程的第二种方法，也是防止阻塞的方法。
 
-![052](./Image/socket/052.png)
+![052](../image/socket/052.png)
 
-[waitpid](./src/chapter10/waitpid.cpp)
+[waitpid](../src/chapter10/waitpid.cpp)
 
 ### 信号处理
 
@@ -1156,7 +1156,7 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 
 #### 信号与 `signal` 函数
 
-![053](./Image/socket/053.png)
+![053](../image/socket/053.png)
 
 - 函数名: `signal`
 - 参数: `int signo`, `void(*func)(int)`
@@ -1171,11 +1171,11 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 
 调用 `signal` 函数注册好信号后，发生注册信号时（注册的情况发生时），操作系统将调用该信号对应的函数。
 
-![054](./Image/socket/054.png)
+![054](../image/socket/054.png)
 
 如果调用该函数的同时向它传递一个正整型参数，相应时间后（以秒为单位）将产生 `SIGALRM` 信号。若向该函数传递 `0`，则之前对 `SIGALRM` 信号的预约将取消。如果通过该函数预约信号后未指定该信号对应的处理函数，则（通过调用 `signal` 函数）终止进程，不做任何处理。
 
-[signal](./src/chapter10/signal.cpp)
+[signal](../src/chapter10/signal.cpp)
 
 **发生信号时将唤醒由于调用 `sleep` 函数而进入阻塞状态的进程。**
 
@@ -1187,7 +1187,7 @@ getsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, &opt_len);
 
 **`signal` 函数在 `UNIX` 系列的不同操作系统中可能存在区别，但 `sigaction` 函数完全相同。**
 
-![055](./Image/socket/055.png)
+![055](../image/socket/055.png)
 
 
 声明并初始化 `sigaction` 结构体变量以调用上述函数，该结构体定义如下。
@@ -1201,11 +1201,11 @@ struct sigaction {
 ```
 此结构体的 `sa_handler` 成员保存信号处理函数的指针值。`sa_mask` 和 `sa_flags` 这 `2` 个成员用于指定信号相关的选项和特性。
 
-[sigaction](./src/chapter10/sigaction.cpp)
+[sigaction](../src/chapter10/sigaction.cpp)
 
 #### 利用信号处理技术消灭僵尸进程
 
-[remove_zombie](./src/chapter10/remove_zombie.cpp)
+[remove_zombie](../src/chapter10/remove_zombie.cpp)
 
 ### 基于多任务的并发服务器
 
@@ -1213,7 +1213,7 @@ struct sigaction {
 
 之前的回声服务器端每次只能向 `1` 个客户端提供服务。扩展回声服务器端，使其可以同时向多个客户端提供服务。
 
-![056](./Image/socket/056.png)
+![056](../image/socket/056.png)
 
 每当有客户端请求服务时，回声服务器端都创建子进程以提供服务。请求服务的客户端若有 `5` 个，则将创建 `5` 个子进程提供服务。为了完成这些任务，需要经过如下过程:
 
@@ -1221,7 +1221,7 @@ struct sigaction {
 - 第二阶段: 此时获取的套接字文件描述符创建并传递给子进程。
 - 第三阶段: 子进程利用传递来的文件描述符提供服务。
 
-[echo_mpserv](./src/chapter10/echo_mpserv.cpp)
+[echo_mpserv](../src/chapter10/echo_mpserv.cpp)
 
 #### 通过 `fork` 函数复制文件描述符
 
@@ -1231,11 +1231,11 @@ struct sigaction {
 
 复制套接字也并不合理: **复制套接字后，同一端口将对应多个套接字。**
 
-![057](./Image/socket/057.png)
+![057](../image/socket/057.png)
 
 `1` 个套接字中存在 `2` 个文件描述符时，只有 `2` 个文件描述符都终止（销毁）后，才能销毁套接字。如果维持图中的连接状态，即使子进程销毁了与客户端连接的套接字文件描述符，也无法完全销毁套接字（服务器端套接字同样如此）。因此，调用 `fork` 函数后，要将无关的套接字文件描述符关掉。
 
-![058](./Image/socket/058.png)
+![058](../image/socket/058.png)
 
 ### 分割 `TCP` 的 `I/O` 程序
 
@@ -1247,15 +1247,15 @@ struct sigaction {
 
 传输数据后需要等待服务器端返回的数据，因为程序代码中重复调用了 read 和 write 函数。只能这么写的原因之一是，程序在 1 个进程中运行。但现在可以创建多个进程，因此可以分割数据收发过程。
 
-![059](./Image/socket/059.png)
+![059](../image/socket/059.png)
 
 客户端的父进程负责接收数据，额外创建的子进程负责发送数据。分割后，不同进程分别负责输入和输出，这样，无论客户端是否从服务器端接收完数据都可以进行传输。
 
 分割 `I/O` 程序的另一个好处是，可以提高频繁交换数据的程序性能，分割 `I/O` 后的客户端发送数据时不必考虑接收数据的情况，因此可以连续发送数据，由此提高同一时间内传输的数据量。这种差异在网速较慢时尤为明显。
 
-![060](./Image/socket/060.png)
+![060](../image/socket/060.png)
 
-[echo_mpclient](./src/chapter10/echo_mpclient.cpp)
+[echo_mpclient](../src/chapter10/echo_mpclient.cpp)
 
 执行 `write_routine` 中的 `return` 语句后，可以调用之后的的 `close` 函数传递 `EOF`。但现在已通过 `fork` 函数调用复制了文件描述符，无法通过 `1` 次 `close` 函数调用传递 `EOF`，因此需要通过 `shutdown` 函数调用另外传递。
 
@@ -1277,27 +1277,27 @@ struct sigaction {
 
 #### 通过管道实现进程间通信
 
-![061](./Image/socket/061.png)
+![061](../image/socket/061.png)
 
 为了完成进程间通信，需要创建管道。管道并非属于进程的资源，而是和套接字一样，属于操作系统（也就不是 `fork` 函数的复制对象）。所以，两个进程通过操作系统提供的内存空间进行通信。
 
-![062](./Image/socket/062.png)
+![062](../image/socket/062.png)
 
 以长度为 `2` 的 `int` 数组地址值作为参数调用上述函数时，数组中存有两个文件描述符，它们将被用作管道的出口和入口。
 
 父进程调用该函数时将创建管道，同时获取对应于出入口的文件描述符，此时父进程可以读写同一管道。但父进程的目的是与子进程进行数据交换，因此需要将入口或出口中的 `1` 个文件描述符传递给子进程。
 
-[pipe1](./src/chapter11/pipe1.cpp)
+[pipe1](../src/chapter11/pipe1.cpp)
 
 父子进程都可以访问管道的 `I/O` 路径，但子进程仅用输入路径，父进程仅用输出路径。
 
-![063](./Image/socket/063.png)
+![063](../image/socket/063.png)
 
 #### 通过管道进行进程间双向通信
 
-![064](./Image/socket/064.png)
+![064](../image/socket/064.png)
 
-[pipe2](./src/chapter11/pipe2.cpp)
+[pipe2](../src/chapter11/pipe2.cpp)
 
 
 **向管道传递数据时，先读的进程会把数据取走。**
@@ -1311,9 +1311,9 @@ struct sigaction {
 `1` 个管道无法完成双向通信任务，因此需要创建 `2` 个管道，各自负责不同的数据流
 动即可。
 
-![065](./Image/socket/065.png)
+![065](../image/socket/065.png)
 
-[pipe3](./src/chapter11/pipe3.cpp)
+[pipe3](../src/chapter11/pipe3.cpp)
 
 父进程睡眠 `3` 秒只是为了延迟父进程终止而插入的代码。
 
@@ -1323,7 +1323,7 @@ struct sigaction {
 
 将回声客户端传输的字符串按序保存到文件中。该任务委托给另外的进程。换言之，另行创建进程，从向客户端提供服务的进程读取字符串信息。当然，该过程中需要创建用于接收数据的管道。
 
-[echo_storeserv](./src/chapter11/echo_storeserv.cpp)
+[echo_storeserv](../src/chapter11/echo_storeserv.cpp)
 
 由于写入缓存的关系，不会立刻写入文件中。
 
@@ -1345,7 +1345,7 @@ struct sigaction {
 
 以纸杯电话进行举例:
 
-![066](./Image/socket/066.png)
+![066](../image/socket/066.png)
 
 复用技术的优点:
 - 减少连线长度。
@@ -1358,7 +1358,7 @@ struct sigaction {
 
 纸杯电话系统引人复用技术后，可以减少纸杯数和连线长度。同样，服务器端引入复用技术可以减少所需进程数。
 
-![067](./Image/socket/067.png)
+![067](../image/socket/067.png)
 
 ### 理解 `select` 函数并实现服务器端
 
@@ -1373,7 +1373,7 @@ struct sigaction {
 
 `select` 函数的调用方法和顺序:
 
-![068](./Image/socket/068.png)
+![068](../image/socket/068.png)
 
 #### 设置文件描述符
 
@@ -1383,7 +1383,7 @@ struct sigaction {
 
 使用 `fd_set` 数组变量执行此项操作，该数组是存有 `0` 和 `1` 的位数组。
 
-![069](./Image/socket/069.png)
+![069](../image/socket/069.png)
 
 最左端的位表示文件描述符 `0`。如果该位设置为 `1`，则表示该文件描述符是监视对象。
 
@@ -1395,11 +1395,11 @@ struct sigaction {
 
 上述函数中，`FD_ISSET` 用于验证 `select` 函数的调用结果。
 
-![070](./Image/socket/070.png)
+![070](../image/socket/070.png)
 
 #### 设置检查（监视）范围及超时
 
-![071](./Image/socket/071.png)
+![071](../image/socket/071.png)
 
 如上所述，`select` 函数用来验证 `3` 种监视项的变化情况。根据监视项声明 `3` 个 `fd_set` 型变量，分别向其注册文件描述符信息，并把变量的地址值传递到上述函数的第二到第四个参数。但在调用 `select` 函数前需要决定下面 `2` 件事:
 - 文件描述符的监视（检查）范围是？
@@ -1420,11 +1420,11 @@ struct sigaction {
 
 向 `select` 函数的第二到第四个参数传递的 `fd_set` 变量中将产生变化:
 
-![072](./Image/socket/072.png)
+![072](../image/socket/072.png)
 
 `select` 函数调用完成后，向其传递的 `fd_set` 变量中将发生变化。原来为 `1` 的所有位均变为 `0`，但发生变化的文件描述符对应位除外。因此，可以认为值仍为 `1` 的位置上的文件描述符发生了变化。
 
-[select](./src/chapter12/select.cpp)
+[select](../src/chapter12/select.cpp)
 
 
 不能在循环外设置超时。因为调用 `select` 函数后，结构体 `timeval` 的成员 `tv_sec` 和 `tv_usec` 的值将被替换为超时前剩余时间。因此，调用 `select` 函数前，每次都需要初始化 `timeval` 结构体变量。
@@ -1433,15 +1433,15 @@ struct sigaction {
 
 #### 实现 `I/O` 复用服务器端
 
-[echo_selectserv](./src/chapter12/echo_selectserv.cpp)
+[echo_selectserv](../src/chapter12/echo_selectserv.cpp)
 
 ## 第十三章: 多种 `I/O` 函数
 
 ### `send` & `recv` 函数
 
-![073](./Image/socket/073.png)
+![073](../image/socket/073.png)
 
-![074](./Image/socket/074.png)
+![074](../image/socket/074.png)
 
 `send` 函数和 `recv` 函数的最后一个参数是收发数据时的可选项。该可选项可利用位或运算同时传递多个信息。
 
@@ -1457,7 +1457,7 @@ struct sigaction {
 
 `MSG_OOB` 可选项用于发送带外数据紧急消息。
 
-[oob_send](./src/chapter13/oob_send.cpp)
+[oob_send](../src/chapter13/oob_send.cpp)
 
 传输数据。正常顺序应该是 `123`、`4`、`567`、`890`，但紧急传输了 `4` 和 `890`，由此可知接收顺序也将改变。
 
@@ -1471,7 +1471,7 @@ struct sigaction {
 - 每个连接只有一个单字节的带外缓冲区。当新的带外数据到达时，先前的带外字节并未丢失，不过他们的标记却因此被新的标记取代而丢失了。如果一个新的带外数据达到，已经在内核接收缓冲区中的带外数据成为普通数据。
   - 所以在两个带外数据之间睡眠 `1` 秒。
 
-[oob_recv](./src/chapter13/oob_recv.cpp)
+[oob_recv](../src/chapter13/oob_recv.cpp)
 
 收到 `MSG_OOB` 紧急消息时，操作系统将产生 `SIGURG` 信号，并调用注册的信号处理函数。信号处理函数内部调用了接收紧急消息的 `recv` 函数。
 
@@ -1507,7 +1507,7 @@ fcntl(recv_sock, F_SETOWN, getpid());
 send(sock, "890", strlen("890"), MSG_OOB);
 ```
 
-![075](./Image/socket/075.png)
+![075](../image/socket/075.png)
 
 如果将缓冲最左端的位置视作偏移量为 `0`，字符 `0` 保存于偏移量为 `2` 的位置。另外，字符 `0` 右侧偏移量为 `3` 的位置存有紧急指针。紧急指针指向紧急消息的下一个位置，同时向对方主机传递如下信息:
 
@@ -1515,11 +1515,11 @@ send(sock, "890", strlen("890"), MSG_OOB);
 
 也就是说，实际只用 `1` 个字节表示紧急消息信息。
 
-![076](./Image/socket/076.png)
+![076](../image/socket/076.png)
 
 TCP 头中含有如下两种信息:
-- `URG=1`：载有紧急消息的数据包
-- `URG` 指针：紧急指针位于偏移量为 `3` 的位置
+- `URG=1`: 载有紧急消息的数据包
+- `URG` 指针: 紧急指针位于偏移量为 `3` 的位置
 
 指定 `MSG_OOB` 选项的数据包本身就是紧急数据包，并通过紧急指针表示紧急消息所在位置。但无法得知以下事实:
 - 紧急消息是字符串 `890`，还是 `90`，还是为单个字符 `0`？
@@ -1529,9 +1529,9 @@ TCP 头中含有如下两种信息:
 
 同时设置 `MSG_PEEK` 选项和 `MSG_DONTWAIT` 选项，以验证输入缓冲中是否存在接收的数据。设置 `MSG_PEEK` 选项并调用 `recv` 函数时，即使读取了输入缓冲的数据也不会删除。因此，该选项通常与 `MSG_DONTWAIT` 合作，用于调用以非阻塞方式验证待读数据存在与否的函数。
 
-[peek_send](./src/chapter13/peek_send.cpp)
+[peek_send](../src/chapter13/peek_send.cpp)
 
-[peek_recv](./src/chapter13/peek_recv.cpp)
+[peek_recv](../src/chapter13/peek_recv.cpp)
 
 通过运行结果可以验证，仅发送 `1` 次的数据被读取了 `2` 次，因为第一次调用 `recv` 函数时设置了 `MSG_PEEK` 可选项。
 
@@ -1547,7 +1547,7 @@ TCP 头中含有如下两种信息:
 
 通过 `writev` 函数可以将分散保存在多个缓冲中的数据一并发送，通过 `readv` 函数可以由多个缓冲分别接收。因此，适当使用这 · 个函数可以减少 `I/O` 函数的调用次数。
 
-![077](./Image/socket/077.png)
+![077](../image/socket/077.png)
 
 上述函数的第二个参数中出现的数组 `iovec` 结构体的声明如下:
 
@@ -1560,19 +1560,19 @@ size_t iov_len; // 缓冲大小
 
 可以看到，结构体 `iovec` 由保存待发送数据的缓冲（`char` 型数组）地址值和实际发送的数据长度信息构成。
 
-![078](./Image/socket/078.png)
+![078](../image/socket/078.png)
 
 `writev` 的第一个参数 `1` 是文件描述符，因此向控制台输出数据，`ptr` 是存有待发送数据信息的 `iovec` 数组指针。第三个参数为 `2`，因此，从 `ptr` 指向的地址开始，共浏览 `2` 个 `iovec` 结构体变量，发送这些指针指向的缓冲数据。
 
 `iovec` 结构体数组。`ptr[0]`（数组第一个元素）的 `iov_base` 指向以 `A` 开头的字符串，同时 `iov_len` 为 `3`，故发送 `ABC`。而 `ptr[1]`（数组的第二个元素）的 `iov_base` 指向数字 `1`，同时 `iov_len` 为 `4`，故发送 `1234`。
 
-[](./src/chapter13/writev.cpp)
+[](../src/chapter13/writev.cpp)
 
 `readv` 函数与 `writev` 函数正好相反。
 
-![079](./Image/socket/079.png)
+![079](../image/socket/079.png)
 
-[readv](./src/chapter13/readv.cpp)
+[readv](../src/chapter13/readv.cpp)
 
 #### 合理使用 `readv` & `writev` 函数
 
@@ -1582,14 +1582,13 @@ size_t iov_len; // 缓冲大小
 
 但其更大的意义在于减少数据包个数。假设为了提高效率而在服务器端明确阻止了 `Nagle` 算法。其实 `writev` 函数在不采用 `Nagle` 算法时更有价值。
 
-![080](./Image/socket/080.png)
+![080](../image/socket/080.png)
 
 上述示例中待发送的数据分别存在 `3` 个不同的地方，此时如果使用 `write` 函数则需要 `3` 次函数调用。但若为提高速度而关闭了 `Nagle` 算法，则极有可能通过 `3` 个数据包传递数据。反之，若使用 `writev` 函数将所有数据一次性写入输出缓冲，则很有可能仅通过 `1` 个数据包传输数据。
 
 相当于将不同位置的数据按照发送顺序移动（复制）到 `1` 个大数组，并通过 `1` 次 `write` 函数调用进行传输。这种方式与调用 `writev` 函数的效果相同，但使用 `writev` 函数更为便利。
 
 ## 第十四章: 多播与广播
-
 
 ### 多播
 
@@ -1609,7 +1608,7 @@ size_t iov_len; // 缓冲大小
 
 多播是基于 `UDP` 完成的，也就是说，多播数据包的格式与 `UDP` 数据包相同。只是与一般的 `UDP` 数据包不同，向网络传递 `1` 个多播数据包时，路由器将复制该数据包并传递到多个主机。多播需要借助路由器完成。
 
-![081](./Image/socket/081.png)
+![081](../image/socket/081.png)
 
 传输至 `AAA` 组的多播数据包借助路由器传递到加入 `AAA` 组的所有主机的过程。
 
@@ -1627,7 +1626,7 @@ size_t iov_len; // 缓冲大小
 `TTL` 变为 `0` 时，该数据包无法再被传递，只能销毁。因此，`TTL` 的值设置过大将影响网络流量。当
 然，设置过小也会无法传递到目标。
 
-![082](./Image/socket/082.png)
+![082](../image/socket/082.png)
 
 程序中的 `TTL` 设置是通过套接字可选项完成的。与设置 `TTL` 相关的协议层为 `IPPROTO_IP`，选项名为 `IP_MULTICAST_TTL`。因此，可以用如下代码把 `TTL` 设置为 `64`:
 
@@ -1677,11 +1676,11 @@ struct ip_mreq {
 
 `Sender` 只需创建 `UDP` 套接字，并向多播地址发送数据。
 
-[news_sender](./src/chapter14/news_sender.cpp)
+[news_sender](../src/chapter14/news_sender.cpp)
 
 `Sender` 与普通的 `UDP` 套接字程序相比差别不大。但多播 `Receiver` 则有些不同。为了接收传向任意多播地址的数据，需要经过加入多播组的过程。除此之外，`Receiver` 同样与 `UDP` 套接字程序差不多。
 
-[news_receiver](./src/chapter14/news_receiver.cpp)
+[news_receiver](../src/chapter14/news_receiver.cpp)
 
 `Sender` 和 `Receiver` 之间的端口号应保持一致。运行顺序并不重要，因为不像 `TCP` 套接字在连接状态下收发数据。因为多播属于广播的范畴，如果延迟运行 `Receiver`，则无法接收之前传输的多播数据。
 
@@ -1713,116 +1712,599 @@ setsockopt(send_sock, SOL_SOCKET, SO_BROADCAST, (void*)&bcast, sizeof(bcast));
 ......
 ```
 
-[news_sender_brd](./src/chapter14/news_sender_brd.cpp)
+[news_sender_brd](../src/chapter14/news_sender_brd.cpp)
 
-[news_receiver_brd](./src/chapter14/news_receiver_brd.cpp)
+[news_receiver_brd](../src/chapter14/news_receiver_brd.cpp)
 
+# 基于 `Linux` 的编程
 
+## 第十五章: 套接字和标准 `I/O`
 
+### 标准 `I/O` 函数的优点
 
+### 标准 `I/O` 函数的两个优点
 
+- 标准 `I/O` 函数具有良好的移植性。
+- 标准 `I/O` 函数可以利用缓冲提高性能。
 
+创建套接字时，操作系统将生成用于 `I/O` 的缓冲。此缓冲在执行 `TCP` 协议时发挥着非常重要的作用。此时若使用标准 `I/O` 函数，将得到额外的另一缓冲的支持。
 
+![083](../image/socket/083.png)
 
+使用标准 `I/O` 函数传输数据时，经过 `2` 个缓冲。例如，通过 `fputs` 函数传输字符串 `Hello` 时，首先将数据传递到标准 `I/O` 函数的缓冲。然后数据将移动到套接字输出缓冲，最后将字符串发送到对方主机。
 
+设置缓冲的主要目的是为了提高性能，但套接字中的缓冲主要是为了实现 `TCP` 协议而设立的。例如，`TCP` 传输中丢失数据时将再次传递，而再次发送数据则意味着在输出缓冲保存了数据。与之相反，使用标准 `I/O` 函数缓冲的主要目的是为了提高性能。
 
+实际上，缓冲并非在所有情况下都能带来卓越的性能。但需要传输的数据越多，有无缓冲带来的性能差异越大。可以通过如下两种角度说明性能的提高:
+- 传输的数据量
+- 数据向输出缓冲移动的次数
 
+比较 `1` 个字节的数据发送 `10` 次（`10` 个数据包）的情况和累计 `10` 个字节发送 `1` 次的情况。发送数据时使用的数据包中含有头信息。头信息与数据大小无关，是按照一定的格式填入的。假设头信息占用 `40` 个字节，需要传递的数据量也存在较大差别。
 
+- `1` 个字节 `10` 次: `40×10=400` 字节
+- `10` 个字节 `1` 次: `40×1=40` 字节
+- 
+另外，为了发送数据，向套接字输出缓冲移动数据也会消耗不少时间。但这同样与移动次数有关。`1` 个字节数据共移动 `10` 次花费的时间将近 `10` 个字节数据移动 `1` 次花费时间的 `10` 倍。
 
+#### 标准 `I/O` 函数和系统函数之间的性能对比
 
+利用标准 `I/O` 函数和系统函数编写文件复制程序，检验缓冲提高性能的程度。
 
+利用系统函数复制文件:
 
+[syscpy](../src/chapter15/syscpy.cpp)
 
+标准 `I/O` 复制文件:
 
+[stdcpy](../src/chapter15/stdcpy.cpp)
 
+#### 标准 `I/O` 函数的几个缺点
 
+- 不容易进行双向通信。
+- 有时可能频繁调用 `fflush` 函数。
+- 需要以 `FILE` 结构体指针的形式返回文件描述符。
 
+打开文件时，如果希望同时进行读写操作，则应以 `r+`、`w+`、`a+` 模式打开。但因为缓冲的缘故，每次切换读写工作状态时应调用 `fflush` 函数。这也会影响基于缓冲的性能提高。而且，为了使用标准 `I/O` 函数，需要 `FILE` 结构体指针。而创建套接字时默认返回文件描述符，因此需要将文件描述符转化为 `FILE` 指针。
 
+- `r` 打开只读文件，该文件必须存在。`r+` 打开可读写的文件，该文件必须存在。
+- `w` 打开只写文件，若文件存在则文件长度清为 `0`，即该文件内容会消失。若文件不存在则建立该文件。`w+` 打开可读写文件，若文件存在则文件长度清为零，即该文件内容会消失。若文件不存在则建立该文件。
+- `a` 以附加的方式打开只写文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾，即文件原先的内容会被保留。`a+` 以附加方式打开可读写的文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾后，即文件原先的内容会被保留。
 
+### 使用标准 `I/O` 函数
 
+创建套接字时返回文件描述符，而为了使用标准 `I/O` 函数，只能将其转换为 `FILE` 结构体指针。
 
+#### 利用 `fdopen` 函数转换为 `FILE` 结构体指针
 
+可以通过 `fdopen` 函数将创建套接字时返回的文件描述符转换为标准 `I/O` 函数中使用的 `FILE` 结
+构体指针。
 
+![084](../image/socket/084.png)
 
+上述函数的第二个参数与 `fopen` 函数中的打开模式相同。
 
+文件描述符转换为 `FILE` 指针，并可以通过该指针调用标准 `I/O` 函数。
 
+[desto](/src/chapter15/desto.cpp)
 
+#### 利用 `fileno` 函数转换为文件描述符
 
+`fileno` 与 `fdopen` 函数提供相反功能的函数。
 
+![085](../image/socket/085.png)
 
+向该函数传递 `FILE` 指针参数时返回相应文件描述符。
 
+[todes](../src/chapter15/todes.cpp)
 
+### 基于套接字的标准 `I/O` 函数的使用
 
+[echo_stdserv](../src/chapter15/echo_stdserv.cpp)
 
+[echo_stdclnt](../src/chapter15/echo_stdclnt.cpp)
 
+`chapter4` 的回声客户端需要将接收的数据转换为字符串（数据的尾部插入 `0`），但上述示例中并没有这一过程。因为，使用标准 `I/O` 函数后可以按字符串单位进行数据交换。
 
+## 第十六章: 关于 `I/O` 流分离的其他内容
 
+### 分离 `I/O` 流
 
+#### `2` 次 `I/O` 流分离
 
+之前通过 `2` 种方法分离过 `I/O` 流:
+- 第一种是通过调用 `fork` 函数复制出 `1` 个文件描述符，以区分输入和输出中使用的文件描述符。虽然文件描述符本身不会根据输入和输出进行区分，但分开了 `2` 个文件描述符的用途。
+- 第二种分离通过 `2` 次 `fdopen` 函数的调用，创建读模式 `FILE` 指针和写模式 `FILE` 指针。换言之，分离了输入工具和输出工具。
 
+十
+#### 分离流的好处
 
+第一种流分离目的:
+- 通过分开输入过程（代码）和输出过程降低实现难度。
+- 与输入无关的输出操作可以提高速度。
 
+第二种流分离目的:
+- 为了将 `FILE` 指针按读模式和写模式加以区分。
+- 可以通过区分读写模式降低实现难度。
+- 通过区分 `I/O` 缓冲提高缓冲性能。
 
+#### 流分离带来的 `EOF` 问题
 
+```c
+shutdown(sock, SHUT_WR);
+```
 
+第一种方法调用 `shutdown` 函数的基于半关闭的 `EOF` 传递。
 
+第二种方法 `fdopen` 函数的流则不同，我们还不知道在这种情况下如何进行半关闭，因此有可能犯如下错误:
 
+**“半关闭？不是可以针对输出模式的 `FILE` 指针调用 `fclose` 函数吗？这样可以向对方传递 `EOF`，变成可以接收数据但无法发送数据的半关闭状态。”**
 
+[sep_serv](../src/chapter16/sep_serv.cpp)
 
+[sep_clnt](../src/chapter16/sep_clnt.cpp)
 
+**服务器端未能接收最后的字符串！**
 
+`sep_serv.cpp` 调用的 `fclose` 函数完全终止了套接字，而不是半关闭。
 
+### 文件描述符的复制和半关闭
 
+#### 终止流时无法半关闭的原因
 
+![086](../image/socket/086.png)
 
+从图中可以看到，示例 `sep_serv` 中的读模式 `FILE` 指针和写模式 `FILE` 指针都是基于同一文件描述符创建的。因此，针对任意一个 `FILE` 指针调用 `fclose` 函数时都会关闭文件描述符，也就终止套接字。
 
+![087](../image/socket/087.png)
 
+销毁套接字时再也无法进行数据交换。创建 `FILE` 指针前先复制文件描述符，就可以进入半关闭状态。
 
+![088](../image/socket/088.png)
 
+如图所示，复制后另外创建 `1` 个文件描述符，然后利用各自的文件描述符生成读模式 `FILE` 指针和写模式 `FILE` 指针。这就为半关闭准备好了环境，因为套接字和文件描述符之间具有如下关系:
 
+**销毁所有文件描述符后才能销毁套接字。”**
 
+也就是说，针对写模式 `FILE` 指针调用 `fclose` 函数时，只能销毁与该 `FILE` 指针相关的文件描述符，无法销毁套接字。
 
+![089](../image/socket/089.png)
 
+如图所示，调用 `fclose` 函数后还剩 `1` 个文件描述符，因此没有销毁套接字。但此时的状态只是准备好了半关闭环境。要进入真正的半关闭状态需要特殊处理。
 
+仔细观察，还剩 `1` 个文件描述符呢。而且该文件描述符可以同时进行 `I/O`。因此，不但没有发送 `EOF`，而且仍然可以利用文件描述符进行输出。
 
+#### 复制文件描述符
 
+之前提到的文件描述符的复制与 `fork` 函数中进行的复制有所区别。调用 `fork` 函数时将复制整个进程，因此同一进程内不能同时有原件和副本。但此处的复制并非针对整个进程，而是在同一进程内完成描述符的复制。
 
+![090](../image/socket/090.png)
 
+如图所示，同一进程内存在 `2` 个文件描述符可以同时访问文件的情况。文件描述符的值不能重复，因此各使用 `5` 和 `7` 的整数值。为了形成这种结构，需要复制文件描述符。此处所谓的复制具有如下含义:
 
+**为了访问同一文件或套接字，创建另一个文件描述符。**
 
+通常的复制很容易让人理解为将包括文件描述符整数值在内的所有内容进行复制，而此处的复制方式却不同。
 
+#### `dup` & `dup2`
 
+![091](../image/socket/091.png)
 
+`dup2` 函数明确指定复制的文件描述符整数值。向其传递大于 `0` 且小于进程能生成的最大文件描述符值时，该值将成为复制出的文件描述符值。
 
+[dup](../src/chapter16/dup.cpp)
 
+#### 复制文件描述符后流的分离
 
+[sep_serv2](../src/chapter16/sep_serv2.cpp/)
 
+针对 `fileno` 函数返回的文件描述符调用 `shutdown` 函数。因此，服务器端进入半关闭状态，并向客户端发送 `EOF`。调用 `shutdown` 函数时，无论复制出多少文件描述符都进入半关闭状态，同时传递 `EOF`。
 
+## 第十七章: 优于 `select` 的 `epoll`
 
+### `epoll` 理解及应用
 
+#### 基于 `select` 的 `I/O` 复用技术速度慢的原因
 
+基于 `select` 的 `I/O` 复用服务器端不合理的设计，最主要的两点如下:
+- 调用 `select` 函数后常见的针对所有文件描述符的循环语句。
+- 每次调用 `select` 函数时都需要向该函数传递监视对象信息。
 
+调用 `select` 函数后，并不是把发生变化的文件描述符单独集中到一起，而是通过观察作为监视对象的 `fd_set` 变量的变化，找出发生变化的文件描述符，因此无法避免针对所有监视对象的循环语句。而且，作为监视对象的 `fd_set` 变量会发生变化，所以调用 `select` 函数前应复制并保存原有信息，并在每次调用 `select` 函数时传递新的监视对象信息。
 
+相比于循环语句，更大的障碍是每次传递监视对象信息。因为传递监视对象信息具有如下含义:
 
+**每次调用 `select` 函数时向操作系统传递监视对象信息。**
 
+应用程序向操作系统传递数据将对程序造成很大负担，而且无法通过优化代码解决，因此将成为性能上的致命弱点。
 
+**那为何需要把监视对象信息传递给操作系统呢？**
 
+有些函数不需要操作系统的帮助就能完成功能，而有些则必须借助于操作系统。`select` 函数与文件描述符有关，更准确地说，是监视套接字变化的函数。而套接字是由操作系统管理的，所以 `select` 函数需要借助于操作系统才能完成功能。`select` 函数的这一缺点可以通过如下方式弥补:
 
+**仅向操作系统传递 `1` 次监视对象，监视范围或内容发生变化时只通知发生变化的事项。**
 
+这样就无需每次调用 `select` 函数时都向操作系统传递监视对象信息，但前提是操作系统支持这种处理方式。`Linux` 的支持方式是 `epoll`。
 
+#### `select` 也有优点
 
+`epoll` 方式只在 `Linux` 下提供支持，也就是说，改进的 `I/O` 复用模型不具有兼容性。相反，大部分操作系统都支持 `select` 函数。只要满足或要求如下两个条件，即使在 `Linux` 平台也不应拘泥于 `epoll`:
+- 服务器端接入者少。
+- 程序应具有兼容性。
 
+#### 实现 `epoll` 时必要的函数和结构体
 
+能够克服 `select` 函数缺点的 `epoll` 函数具有如下优点:
+- 无需编写以监视状态变化为目的的针对所有文件描述符的循环语句。
+- 调用对应于 `select` 函数的 `epoll_wait` 函数时无需每次传递监视对象信息。
 
+`epoll` 服务器端实现中需要的 `3` 个函数:
+- `epoll_create`: 创建保存 `epoll` 文件描述符的空间。
+- `epoll_ctl`: 向空间注册并注销文件描述符。
+- `epoll_wait`: 与 `select` 函数类似，等待文件描述符发生变化。
 
+`select` 方式中为了保存监视对象文件描述符，直接声明了 `fd_set` 变量。但 `epoll` 方式下由操作系统负责保存监视对象文件描述符，因此需要向操作系统请求创建保存文件描述符的空间，此时使用的函数就是 `epoll_create`。
 
+此外，为了添加和删除监视对象文件描述符，`select` 方式中需要 `FD_SET`、`FD_CLR` 函数。但在 `epoll` 方式中，通过 `epoll_ctl` 函数请求操作系统完成。最后，`select` 方式下调用 `select` 函数等待文件描述符的变化，而 `epoll` 中调用 `epoll_wait` 函数。还有，`select` 方式中通过 `fd_set` 变量查看监视对象的状态变化（事件发生与否），而 `epoll` 方式中通过如下结构体 `epoll_event` 将发生变化的文件描述符单独集中到一起。
 
+```c
+struct epoll_event {
+    _uint32_t events;
+    epoll_data_t data;
+}
+    typedef union epoll_data {
+        void* ptr;
+        int fd;
+        __uint32_t u32;
+        __uint64_t u64;
+    } epoll_data_t;
+```
 
+声明足够大的 `epoll_event` 结构体数组后，传递给 `epoll_wait` 函数时，发生变化的文件描述符信息将被填入该数组。因此，无需像 `select` 函数那样针对所有文件描述符进行循环。
 
+#### `epoll_create`
 
+`epoll` 是从 `Linux` 的 `2.5.44` 版内核开始引入的，所以使用 `epoll` 前需要验证 `Linux` 内核版本，可通过如下命令验证:
 
+```
+cat /proc/sys/kernel/osrelease 
+```
 
+![092](../image/socket/092.png)
 
+调用 `epoll_create` 函数时创建的文件描述符保存空间称为 `epoll` 例程，但有些情况下名称不同，需要稍加注意。通过参数 `size` 传递的值决定 `epoll` 例程的大小，但该值只是向操作系统提的建议。换言之，`size` 并非用来决定 `epoll` 例程的大小，而仅供操作系统参考。
+
+`Linux 2.6.8` 之后的内核将完全忽略传入 `epoll_create` 函数的 `size` 参数，因为内核会根据情况调整 `epoll` 例程的大小。
+
+`epoll_create` 函数创建的资源与套接字相同，也由操作系统管理。因此，该函数和创建套接字的情况相同，也会返回文件描述符。也就是说，该函数返回的文件描述符主要用与于区分 `epoll` 例程。需要终止时，与其他文件描述符相同，也要调用 `close` 函数。
+
+#### `epoll_ctl`
+
+生成 `epoll` 例程后，应在其内部注册监视对象文件描述符，此时使用 `epoll_ctl` 函数。
+
+![093](../image/socket/093.png)
+
+例如:
+
+```c
+epoll_ctl(A, EPOLL_CTL_ADD, B, C);
+```
+
+第二个参数 `EPOLL_CTL_ADD` 意味着添加，因此上述语句具有如下含义:
+
+`epoll` 例程 `A` 中注册文件描述符 `B`，主要目的是监视参数 `C` 中的事件。
+
+再介绍一个调用语句:
+
+```c
+epoll_ctl(A, EPOLL_CTL_DEL, B, NULL);
+```
+
+上述语句中第二个参数 `EPOLL_CTL_DEL` 指删除，因此该语句具有如下含义:
+
+从 `epoll` 例程 `A` 中删除文件描述符 `B`。
+
+从上述调用语句中可以看到，从监视对象中删除时，不需要监视类型，因此向第四个参数传递 `NULL`。
+
+向 `epoll_ctl` 第二个参数传递的常量及含义:
+- `EPOLL_CTL_ADD`: 将文件描述符注册到 `epoll` 例程。
+- `EPOLL_CTL_DEL`: 从epoll例程中删除文件描述符。
+- `EPOLL_CTL_MOD`: 更改注册的文件描述符的关注事件发生情况。
+
+`epoll_ctl` 函数的第四个参数，其类型是 epoll_event 结构体指针。
+
+如前所述，`epoll_event` 结构体用于保存发生事件的文件描述符集合。但也可以在 `epoll` 例程中注册文件描述符时，用于注册关注的事件。
+
+```c
+struct epoll_event event;
+event.events = EPOLL_IN; // 发生需要读取数据的情况（事件）时
+event.data.fd = sockfd;
+epoll_ctl(epfd, EPOLL_CTL_ADD, sockfd, &event);
+```
+
+上述代码将 `sockfd` 注册到 `epoll` 例程 `epfd` 中，并在需要读取数据的情况下产生相应事件。
+
+接下来给出 `epoll_event` 的成员 `events` 中可以保存的常量及所指的事件类型:
+- `EPOLLIN`: 需要读取数据的情况。
+- `EPOLLOUT`: 输出缓冲为空，可以立即发送数据的情况。
+- `EPOLLPRI`: 收到 `OOB` 数据的情况。
+- `EPOLLRDHUP`: 断开连接或半关闭的情况，这在边缘触发方式下非常有用。
+- `EPOLLERR`: 发生错误的情况。
+- `EPOLLET`: 以边缘触发的方式得到事件通知。
+- `EPOLLONESHOT`: 发生一次事件后，相应文件描述符不再收到事件通知。因此需要向 `epoll_ctl` 函数的第二个参数传递 `EPOLL_CTL_MOD`，再次设置事件。
+
+可以通过位或运算同时传递多个上述参数。
+
+#### `epoll_wait`
+
+最后介绍与 `select` 函数对应的 `epoll_wait` 函数，`epoll` 相关函数中默认最后调用该函数。
+
+![094](../image/socket/094.png)
+
+```c
+int event_cnt;
+struct epoll_event* ep_events;
+ep_events = malloc(sizeof(struct epoll_event) * EPOLL_SIZE); // EPOLL_SIZE 是宏常量
+event_cnt = epoll_wait(epfd, ep_events, EPOLL_SIZE, -1);
+```
+
+调用函数后，返回发生事件的文件描述符数，同时在第二个参数指向的缓冲中保存发生事件的文件描述符集合。因此，无需像 `select` 那样插入针对所有文件描述符的循环。
+
+#### 基于 `epoll` 的回声服务器端
+
+[echo_epollserv](../src/chapter17/echo_epollserv.cpp)
+
+### 条件触发和边缘触发
+
+#### 条件触发和边缘触发的区别在于发生事件的时间点
+
+条件触发事件的特点:
+
+**条件触发方式中，只要输入缓冲有数据就会一直通知该事件。**
+
+例如，服务器端输入缓冲收到 `50` 字节的数据时，服务器端操作系统将通知该事件（注册到发生变化的文件描述符）。但服务器端读取 `20` 字节后还剩 `30` 字节的情况下，仍会注册事件。也就是说，条件触发方式中，只要输入缓冲中还剩有数据，就将以事件方式再次注册。
+
+边缘触发的事件特性:
+
+边缘触发中输入缓冲收到数据时仅注册 `1` 次该事件。即使输入缓冲中还留有数据，也不会再进行注册。
+
+#### 掌握条件触发的事件特性
+
+`epoll` 默认以条件触发方式工作，通过该示例验证条件触发的特性。
+
+[echo_EPLTserv](../src/chapter17/echo_EPLTserv.cpp/)
+
+- 将调用 `read` 函数时使用的缓冲大小缩减为 `4` 个字节
+- 插入验证 `epoll_wait` 函数调用次数的语句
+
+减少缓冲大小是为了阻止服务器端一次性读取接收的数据。换言之，调用 `read` 函数后，输入缓冲中仍有数据需要读取。而且会因此注册新的事件并从 `epoll_wait` 函数返回时将循环输出 `return epoll_wait` 字符串。
+
+每当收到客户端数据时，都会注册该事件，并因此多次调用 `epoll_wait` 函数。
+
+改成如下形式运行服务器端和客户端:
+
+```c
+event.events = EPOLLIN|EPOLLET;
+```
+更改后可以验证如下事实:
+
+从客户端接收数据时，仅输出 `1` 次 `return epoll_wait` 字符串，这意味着仅注册 `1` 次事件。但客户端运行时将发生错误。
+
+`select` 模型是以条件触发的方式工作的，输入缓冲中如果还剩有数据，肯定会注册事件。
+
+#### 边缘触发的服务器端实现中必知的两点
+
+- 通过 `errno` 变量验证错误原因。
+- 为了完成非阻塞 `I/O`，更改套接字特性。
+
+`Linux` 的套接字相关函数一般通过返回 `-1` 通知发生了错误。虽然知道发生了错误，但仅凭这些内容无法得知产生错误的原因。因此，为了在发生错误时提供额外的信息，`Linux` 声明了如下全局变量:
+
+```c
+int errno;
+```
+
+为了访问该变量，需要引入 `error.h` 头文件，此头文件中有上述变量的 `extern` 声明。另外，每种函数发生错误时，保存到 `errno` 变量中的值都不同。
+
+`read` 函数发现输入缓冲中没有数据可读时返回 `-1`，同时在 `errno` 中保存 `EAGAIN` 常量。
+
+`Linux` 提供更改或读取文件属性的如下方法:
+
+![095](../image/socket/095.png)
+
+`fcntl` 具有可变参数的形式。如果向第二个参数传递 `F_GETFL`，可以获得第一个参数所指的文件描述符属性。反之，如果传递 `F_SETFL`，可以更改文件描述符属性。若希望将文件（套接字）改为非阻塞模式，需要如下 `2` 条语句:
+
+```c
+int flag = fcntl(fd, F_GETFL, 0);
+fcntl(fd, F_SETFL, flag|O_NONBLOCK);
+```
+
+通过第一条语句获取之前设置的属性信息，通过第二条语句在此基础上添加非阻塞 `O_NONBLOCK` 标志。调用 `read` & `write` 函数时，无论是否存在数据，都会形成非阻塞文件（套接字）。
+
+#### 实现边缘触发的回声服务器端
+
+之所以介绍读取错误原因的方法和非阻塞模式的套接字创建方法，原因在于二者都与边缘触发的服务器端实现有密切联系。
+
+首先说明为何需要通过 `errno` 确认错误原因:
+
+**边缘触发方式中，接收数据时仅注册 `1` 次该事件。**
+
+就因为这种特点，一旦发生输入相关事件，就应该读取输入缓冲中的全部数据。因此需要验证输入缓冲是否为空。
+
+**`read` 函数返回 `-1`，变量 `errno` 中的值为 `EAGAIN` 时，说明没有数据可读。**
+
+边缘触发方式下，以阻塞方式工作的 `read` & `write` 函数有可能引起服务器端的长时间停顿。因此，边缘触发方式中一定要采用非阻塞 `read` & `write` 函数。
+
+[echo_EPETserv](../src/chapter17/echo_EPETserv.cpp)
+
+- 为了验证边缘触发的工作方式，将缓冲设置为 `4` 字节。
+- 为观察事件发生数而添加的输出字符串的语句。
+- 将 `accept` 函数创建的套接字改为非阻塞模式。
+- 向 `EPOLLIN` 添加 `EPOLLET` 标志，将套接字事件注册方式改为边缘触发。
+- 之前的条件触发回声服务器端中没有该 `while` 循环。边缘触发方式中，发生事件时需要读取输入缓冲中的所有数据，因此需要循环调用 `read` 函数。
+- `read` 函数返回 `-1` 且 `errno` 值为 `EAGAIN` 时，意味着读取了输入缓冲中的全部数据，因此需要通过 `break` 语句跳出循环。
+
+#### 条件触发和边缘触发孰优孰劣
+
+边缘触发方式下可以做到如下这点:
+
+**可以分离接收数据和处理数据的时间点！**
+
+![096](../image/socket/096.png)
+
+运行流程如下:
+- 服务器端分别从客户端 `A`、`B`、`C` 接收数据。
+- 服务器端按照 `A`、`B`、`C` 的顺序重新组合收到的数据。
+- 组合的数据将发送给任意主机。
+
+为了完成该过程，若能按如下流程运行程序，服务器端的实现并不难:
+- 客户端按照 `A`、`B`、`C` 的顺序连接服务器端，并依序向服务器端发送数据。
+- 需要接收数据的客户端应在客户端 `A`、`B`、`C` 之前连接到服务器端并等待。
+
+但现实中可能频繁出现如下这些情况，换言之，如下情况更符合实际:
+- 客户端 `C` 和 `B` 正向服务器端发送数据，但 `A` 尚未连接到服务器端。
+- 客户端 `A`、`B`、`C` 乱序发送数据。
+- 服务器端已收到数据，但要接收数据的目标客户端还未连接到服务器端。
+
+因此，即使输入缓冲收到数据（注册相应事件），服务器端也能决定读取和处理这些数据的时间点，这样就给服务器端的实现带来巨大的灵活性。
+
+**条件触发中无法区分数据接收和处理吗？**
+
+并非不可能。但在输入缓冲收到数据的情况下，如果不读取（延迟处理），则每次调用 `epoll_wait` 函数时都会产生相应事件。而且事件数也会累加，服务器端可能不能承受。
+
+**边缘触发是否更快？能快多少呢？**
+
+从实现模型的角度看，边缘触发更有可能带来高性能，但不能简单地认为只要使用边缘触发就一定能提高速度。
+
+## 第十八章 多线程服务器端的实现
+
+## 理解线程的概念
+
+#### 引入线程的背景
+
+多进程模型与 `select` 或 `epoll` 相比的确有自身的优点，但同时也有问题。如前所述，创建进程（复制）的工作本身会给操作系统带来相当沉重的负担。而且，每个进程具有独立的内存空间，所以进程间通信的实现难度也会随之提高。换言之，多进程模型的缺点可概括如下:
+- 创建进程的过程会带来一定的开销。
+- 为了完成进程间数据交换，需要特殊的 `IPC` 技术。
+
+但相比于下面的缺点，上述 `2` 个缺点不算什么:
+
+**每秒少则数十次、多则数千次的上下文切换是创建进程时最大的开销。**
+
+只有 `1` 个 `CPU`（准确地说是 `CPU` 的运算设备 `CORE`）的系统中，系统将 `CPU` 时间分成多个微小的块后分配给了多个进程。为了分时使用 `CPU`，需要上下文切换过程。
+
+运行程序前需要将相应进程信息读入内存，如果运行进程 `A` 后需要紧接着运行进程 `B`，就应该将进程 `A` 相关信息移出内存，并读入进程 `B` 相关信息。这就是上下文切换。但此时进程 `A` 的数据将被移动到硬盘，所以上下文切换需要很长时间。即使通过优化加快速度，也会存在一定的局限。
+
+为了保持多进程的优点，同时在一定程度上克服其缺点，引入了线程。这是为了将进程的各种劣势降至最低限度而设计的一种轻量级进程。线程相比于进程具有如下优点:
+- 线程的创建和上下文切换比进程的创建和上下文切换更快。
+- 线程间交换数据时无需特殊技术。
+
+#### 线程和进程的差异
+
+每个进程的内存空间都由保存全局变量的数据区、向 `malloc` 等函数的动态分配提供空间的堆（`Heap`）、函数运行时使用的栈（`Stack`）构成。每个进程都拥有这种独立空间。
+
+![097](../image/socket/097.png)
+
+但如果以获得多个代码执行流为主要目的，则不应该像上图那样完全分离内存结构，而只需分离栈区域。通过这种方式可以获得如下优势:
+- 上下文切换时不需要切换数据区和堆。
+- 可以利用数据区和堆交换数据。
+
+实际上这就是线程。线程为了保持多条代码执行流而隔开了栈区域。
+
+![098](../image/socket/098.png)
+
+多个线程将共享数据区和堆。为了保持这种结构，线程将在进程内创建并运行。也就是说，进程和线程可以定义为如下形式:
+- 进程: 在操作系统构成单独执行流的单位。
+- 线程: 在进程构成单独执行流的单位。
+
+如果说进程在操作系统内部生成多个执行流，那么线程就在同一进程内部创建多条执行流。
+
+因此，操作系统、进程、线程之间的关系如图所示:
+
+![099](../image/socket/099.png)
+
+### 线程创建及运行
+
+
+#### 线程的创建和执行流程
+
+线程具有单独的执行流，因此需要单独定义线程的 `main` 函数，还需要请求操作系统在单独的执行流中执行该函数。
+
+![100](../image/socket/100.png)
+
+[thread1](../src/chapter18/thread1.cpp)
+
+创建一个线程，从 `thread_main` 函数调用开始，在单独的执行流中运行。同时在调用 `thread_main` 函数时向其传递 `thread_param` 变量的地址值。
+
+用 `sleep` 函数使 `main` 函数停顿 `10` 秒，这是为了延迟进程的终止时间。执行第 `main` 中的 `return` 语句后终止进程，同时终止内部创建的线程。因此，为保证线程的正常执行而添加这条语句。
+
+线程相关代码在编译时需要添加 `-l pthread` 选项声明需要连接线程库，只有这样才能调用头文件 `pthread.h` 中声明的函数。
+
+![101](../image/socket/101.png)
+
+图中的虚线代表执行流称，向下的箭头指的是执行流，横向箭头是函数调用。接下来将上述示例子线程的 `sleep` 函数的调用语句改成如下形式:
+
+```c
+sleep(2);
+```
+
+运行后可以看到，此时不会像代码中写的那样输出 `5` 次 `running thread` 字符串。因为 `main` 函数返回后整个进程将被销毁。
+
+![102](../image/socket/102.png)
+
+正因如此，我们在之前的示例中通过调用 `sleep` 函数向线程提供了充足的执行时间。
+
+通常利用下面的函数控制线程的执行流:
+
+![103](../image/socket/103.png)
+
+调用该函数的线程将进入等待状态，直到第一个参数为 `ID` 的线程终止为止。而且可以得到线程的 `main` 函数返回值。
+
+[thread2](../src/chapter18/thread2.cpp/)
+
+![104](../image/socket/104.png)
+
+#### 可在临界区内调用的函数
+
+之前的示例中只创建了 `1` 个线程，接下来的示例将开始创建多个线程。当然，无论创建多少线程，其创建方法没有区别。但关于线程的运行需要考虑多个线程同时调用函数时可能产生问题。这类函数内部存在临界区，也就是说，多个线程同时执行这部分代码时，可能引起问题。
+
+根据临界区是否引起问题，函数可分为以下 `2` 类:
+- 线程安全函数
+- 非线程安全函数
+
+线程安全函数被多个线程同时调用时也不会引发问题。反之，非线程安全函数被同时调用时会引发问题。但这并非关于有无临界区的讨论，线程安全的函数中同样可能存在临界区。只是在线程安全函数中，同时被多个线程调用时可通过一些措施避免问题。
+
+大多数标准函数都是线程安全的函数。我们不用自己区分线程安全的函数和非线程安全的函数。因为平台在定义非线程安全函数的同时，提供了具有相同功能的线程安全的函数。比如，如下函数就不是线程安全的函数:
+
+```c
+struct hostent* gethostbyname(const char* hostname);
+```
+
+同时提供线程安全的同一功能的函数:
+
+```c
+struct hostent* gethostbyname_r(const char* name, struct hostent* result, char* buffer, size_t buflen, int* h_errnop);
+```
+
+线程安全函数的名称后缀通常为 `_r`。既然如此，多个线程同时访问的代码块中应该调用 `gethostbyname_r`，而不是 `gethostbyname`。
+
+可以通过如下方法自动将 `gethostbyname` 函数调用改为 `gethostbyname_r` 函数调用:
+
+**声明头文件前定义 `_REENTRANT` 宏。**
+
+另外，无需为了上述宏定义特意添加 `#define` 语句，可以在编译时通过添加 `-D_REENTRANT ` 选项定义宏。
+
+#### 工作线程模型
+
+
+计算 `1` 到 `10` 的和，但并不是在 `main` 函数中进行累加运算，而是创建 `2` 个线程，其中一个线程计算 `1` 到 `5` 的和，另一个线程计算 `6` 到 `10` 的和，`main` 函数只负责输出运算结果。这种方式的编程模型称为工作线程模型。计算 `1` 到 `5` 之和的线程与计算 `6` 到 `10` 之和的线程将成为 `main` 线程管理的工作。
+
+![105](../image/socket/105.png)
+
+[thread3](../src/chapter18/thread3.cpp)
+
+`2` 个线程直接访问全局变量 `sum`，运行结果虽然正确，但示例本身存在问题。此处存在临界区相关问题。
+
+[thread4](../src/chapter18/thread4.cpp)
+
+上述示例中共创建了 `100` 个线程，其中一半执行 `thread_inc` 函数中的代码，另一半则执行 `thread_des` 函数中的代码。全局变量 `num` 经过增减过程后应存有 `0`，但运行结果并不是 `0`，而且每次运行的结果均不同。
 
 
 
