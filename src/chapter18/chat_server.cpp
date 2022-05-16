@@ -8,7 +8,6 @@
 
 #define BUF_SIZE 100
 
-
 using namespace std;
 
 void* handle_clnt(void* arg);
